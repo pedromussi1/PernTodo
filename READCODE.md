@@ -54,8 +54,43 @@ module.exports = pool;: We're exporting the pool instance so that it can be impo
 
 <h2>Client</h2>
 
+<h3>App.js</h3>
+
+<p>
+
+Importing Modules and Components:
+
+import React, { Fragment } from 'react';: We're importing React and Fragment from the 'react' library. React is a JavaScript library for building user interfaces, and Fragment is a built-in React component that allows us to group multiple elements without adding an extra node to the DOM.
+
+import './App.css';: We're importing the App.css file to apply styles to the App component and its child components.
+
+Importing Custom Components:
+
+import InputTodo from "./components/InputTodo";: We're importing the InputTodo component from the InputTodo.js file located in the components folder.
+
+import ListTodos from './components/ListTodos';: We're importing the ListTodos component from the ListTodos.js file located in the components folder.
+
+App Component:
+
+We're defining a functional component named App using the arrow function syntax. This component represents the main App component of our React application.
+
+We're using the Fragment component to group multiple child components without adding an extra node to the DOM. This helps to keep the HTML structure clean and semantic.
+
+We're using a div element with a className of container to create a container for our child components. The container class is likely defined in the App.css file and applies styling to the container.
+
+We're rendering the InputTodo component inside the container. This component likely contains a form to input new todo items.
+
+We're rendering the ListTodos component inside the container. This component likely displays a list of todo items fetched from the database.
+    
+</p>
+
 <h3>(Client) index.js</h3>
 
+<p>
+
+
+    
+</p>
 
 
 ### <h3>(Server) index.js</h3>
@@ -174,48 +209,201 @@ module.exports = pool;
 
 <hr>
 
-### <h3>index.js</h3>
+### <h3>App.js</h3>
 
 <details>
 <summary>Click to expand code</summary>
 
 ```js
+
+// Importing required modules and components
+import React, { Fragment } from 'react'; // Importing React and Fragment from the 'react' library
+import './App.css'; // Importing the CSS file for styling
+
+// Importing custom components
+import InputTodo from "./components/InputTodo"; // Importing the InputTodo component
+import ListTodos from './components/ListTodos'; // Importing the ListTodos component
+
+function App() {
+  // Rendering the App component
+  return (
+    <Fragment> {/* Using Fragment to group multiple elements without adding an extra node to the DOM */}
+      <div className="container"> {/* Container for styling purposes */}
+        <InputTodo/> {/* Rendering the InputTodo component */}
+        <ListTodos/> {/* Rendering the ListTodos component */}
+      </div>
+    </Fragment>
+  );
+}
+
+export default App; // Exporting the App component to be used in other parts of the application
+
 
 ```
 </details>
 
 <hr>
 
-### <h3>index.js</h3>
+### <h3>(Client) index.js</h3>
 
 <details>
 <summary>Click to expand code</summary>
 
 ```js
+
+// Importing required modules and components
+import React from 'react'; // Importing React from the 'react' library
+import ReactDOM from 'react-dom/client'; // Importing ReactDOM from the 'react-dom/client' library
+import './index.css'; // Importing the CSS file for styling
+import App from './App'; // Importing the App component
+
+// Creating a root for the React application
+const root = ReactDOM.createRoot(document.getElementById('root')); // Creating a root for the React application with the 'root' element from the DOM
+
+// Rendering the App component inside the root
+root.render(
+  <React.StrictMode> {/* Using React.StrictMode to detect potential problems in the application */}
+    <App /> {/* Rendering the App component */}
+  </React.StrictMode>
+);
 
 ```
 </details>
 
 <hr>
 
-### <h3>index.js</h3>
+### <h3>EditTodo.js</h3>
 
 <details>
 <summary>Click to expand code</summary>
 
 ```js
+
+import React, { Fragment, useState } from "react";
+
+// EditTodo component
+const EditTodo = ({ todo }) => {
+
+    // State variable to store the description of the todo item
+    const [description, setDescription] = useState(todo.description);
+
+    // Function to update the description of the todo item
+    const updateDescription = async (e) => {
+        e.preventDefault(); // Preventing the default form submission behavior
+        try {
+            const body = { description }; // Creating a body object with the updated description
+            // Sending a PUT request to update the todo item with the new description
+            const response = await fetch(`http://localhost:5000/todos/${todo.todo_id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+
+            window.location = "/"; // Redirecting to the homepage after successful update
+        } catch (err) {
+            console.error(err.message); // Logging any errors to the console
+        }
+    }
+
+    // Rendering the EditTodo component
+    return (
+        <Fragment>
+            {/* Button to trigger the modal */}
+            <button type="button" className="btn btn-warning" data-toggle="modal" data-target={`#id${todo.todo_id}`}>
+                Edit
+            </button>
+
+            {/* Modal for editing the todo item */}
+            <div className="modal" id={`id${todo.todo_id}`} onClick={() => setDescription(todo.description)}>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+
+                        {/* Modal header */}
+                        <div className="modal-header">
+                            <h4 className="modal-title">Edit Todo</h4>
+                            <button type="button" className="close" data-dismiss="modal" onClick={() => setDescription(todo.description)}>&times;</button>
+                        </div>
+
+                        {/* Modal body */}
+                        <div className="modal-body">
+                            {/* Input field to edit the description */}
+                            <input type='text' className="form-control" value={description} onChange={e => setDescription(e.target.value)} />
+                        </div>
+
+                        {/* Modal footer */}
+                        <div className="modal-footer">
+                            {/* Edit button */}
+                            <button type="button" className="btn btn-warning" data-dismiss="modal" onClick={e => updateDescription(e)}>Edit</button>
+                            {/* Close button */}
+                            <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={() => setDescription(todo.description)}>Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </Fragment>
+    );
+};
+
+export default EditTodo; // Exporting the EditTodo component
 
 ```
 </details>
 
 <hr>
 
-### <h3>index.js</h3>
+### <h3>InputTodo.js</h3>
 
 <details>
 <summary>Click to expand code</summary>
 
 ```js
+
+import React, { Fragment, useState } from 'react';
+
+// InputTodo component
+const InputTodo = () => {
+
+    // State variable to store the description of the todo item
+    const [description, setDescription] = useState("");
+
+    // Function to handle form submission
+    const onSubmitForm = async e => {
+        e.preventDefault(); // Preventing the default form submission behavior
+        try {
+            const body = { description }; // Creating a body object with the description
+            // Sending a POST request to add a new todo item
+            const response = await fetch("http://localhost:5000/todos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+
+            window.location = "/"; // Redirecting to the homepage after successful addition
+        } catch (err) {
+            console.error(err.message); // Logging any errors to the console
+        }
+    };
+
+    // Rendering the InputTodo component
+    return (
+        <Fragment>
+            {/* Heading */}
+            <h1 className="text-center mt-5">Pern Todo List</h1>
+
+            {/* Form for adding a new todo item */}
+            <form className="d-flex mt-5" onSubmit={onSubmitForm}>
+                {/* Input field to enter the description of the new todo item */}
+                <input type="text" className="form-control" value={description} onChange={e => setDescription(e.target.value)} />
+
+                {/* Submit button */}
+                <button className="btn btn-success">Add</button>
+            </form>
+        </Fragment>
+    );
+};
+
+export default InputTodo; // Exporting the InputTodo component
 
 ```
 </details>
