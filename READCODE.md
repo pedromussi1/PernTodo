@@ -410,12 +410,94 @@ export default InputTodo; // Exporting the InputTodo component
 
 <hr>
 
-### <h3>index.js</h3>
+### <h3>ListTodos.js</h3>
 
 <details>
 <summary>Click to expand code</summary>
 
 ```js
+
+import React, { Fragment, useEffect, useState } from "react";
+
+import EditTodo from "./EditTodo";
+
+// ListTodos component
+const ListTodos = () => {
+
+    // State variable to store the list of todos
+    const [todos, setTodos] = useState([]);
+
+    // Function to delete a todo item
+    const deleteTodo = async (id) => {
+        try {
+            // Sending a DELETE request to delete the todo item with the specified id
+            const deleteTodo = await fetch(`http://localhost:5000/todos/${id}`, {
+                method: "DELETE"
+            });
+
+            // Updating the todos state to remove the deleted todo item
+            setTodos(todos.filter(todo => todo.todo_id !== id));
+        } catch (err) {
+            console.error(err.message); // Logging any errors to the console
+        }
+    }
+
+    // Function to fetch all todo items from the backend
+    const getTodos = async () => {
+        try {
+            // Sending a GET request to fetch all todo items
+            const response = await fetch("http://localhost:5000/todos");
+            const jsonData = await response.json(); // Parsing the JSON response
+
+            // Updating the todos state with the fetched todo items
+            setTodos(jsonData);
+        } catch (err) {
+            console.error(err.message); // Logging any errors to the console
+        }
+    };
+
+    // useEffect hook to fetch todos when the component mounts
+    useEffect(() => {
+        getTodos(); // Calling the getTodos function
+    }, []);
+
+    // Logging the todos to the console
+    console.log(todos);
+
+    // Rendering the ListTodos component
+    return ( 
+        <Fragment>
+            {/* Table to display the list of todos */}
+            <table className="table mt-5 text-center">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* Mapping through the todos array and rendering each todo as a table row */}
+                    {todos.map(todo => (
+                        <tr key={todo.todo_id}>
+                            <td>{todo.description}</td>
+                            <td>
+                                {/* EditTodo component to edit the todo item */}
+                                <EditTodo todo={todo} />
+                            </td>
+                            <td>
+                                {/* Delete button to delete the todo item */}
+                                <button className="btn btn-danger" onClick={() => deleteTodo(todo.todo_id)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </Fragment>
+    );
+};
+
+export default ListTodos; // Exporting the ListTodos component
 
 ```
 </details>
