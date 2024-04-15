@@ -40,9 +40,13 @@
   <kbd><img src="https://i.imgur.com/6yWAVK2.png" alt="Level 1"></kbd>
 </p>
 
-<p>The user can write the name of a new item they want to add to the list and click on "add" to add that item.</p>
+<p align="center">
+  <kbd><img src="https://i.imgur.com/EffXnKy.png" alt="Level 1"></kbd>
+</p>
 
-<h3>Tutorial Screen</h3>
+<p>The user can write the name of a new item they want to add to the list and click on "add" to add that item. You can see on the second image that the item has been added to the list.</p>
+
+<h3>Deleting an item from the list</h3>
 
 <p align="center">
   <kbd><img src="https://i.imgur.com/nCy2UPu.png" alt="Level 2"></kbd>
