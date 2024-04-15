@@ -12,14 +12,19 @@ Routes:
 
 Create a Todo:
 app.post("/todos", async (req, res) => {...}): This route handles POST requests to create a new todo item. It extracts the description from the request body, inserts the new todo into the database, and sends back the newly created todo as a JSON response.
+
 Get All Todos:
 app.get("/todos", async (req, res) => {...}): This route handles GET requests to fetch all todo items from the database and sends them back as a JSON response.
+
 Get a Specific Todo:
 app.get("/todos/:id", async (req, res) => {...}): This route handles GET requests to fetch a specific todo item based on its ID from the database and sends it back as a JSON response.
+
 Update a Specific Todo:
 app.put("/todos/:id", async (req, res) => {...}): This route handles PUT requests to update a specific todo item based on its ID in the database and sends a success message back as a JSON response.
+
 Delete a Specific Todo:
 app.delete("/todos/:id", async (req, res) => {...}): This route handles DELETE requests to delete a specific todo item based on its ID from the database and sends a success message back as a JSON response.
+
 Server Start:
 app.listen(5000, () => {...}): This line starts the Express server on port 5000, and a message is logged to the console indicating that the server has started successfully.
 
