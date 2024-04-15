@@ -548,26 +548,4 @@ export default ListTodos; // Exporting the ListTodos component
 
 <hr>
 
-### <h3>index.js</h3>
 
-<details>
-<summary>Click to expand code</summary>
-
-```js
-
-```
-</details>
-
-<hr>
-
-### <h3>index.js</h3>
-
-<details>
-<summary>Click to expand code</summary>
-
-```js
-
-```
-</details>
-
-<hr>
