@@ -40,7 +40,7 @@
   <kbd><img src="https://i.imgur.com/6yWAVK2.png" alt="AddingItem"></kbd>
 </p>
 
-<p>The user can write the name of a new item they want to add to the list and click on "add" to add that item. You can see on the second image below that the item has been added to the list.</p>
+<p>The user can write the name of a new item they want to add to the list and click on "add" to add that item. In this example I chose to add "Need to buy groceries" to the list. You can see on the second image below that the item has been added to the list.</p>
 
 <p align="center">
   <kbd><img src="https://i.imgur.com/EffXnKy.png" alt="AddingItem1"></kbd>
