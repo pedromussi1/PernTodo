@@ -32,15 +32,15 @@
 </h2>
 
 
-<h2>Game Walk-through</h2>
+<h2>Project Walk-through</h2>
 
-<h3>Main Menu</h3>
+<h3>Adding Items to the List</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/hs2RqfV.png" alt="Level 1"></kbd>
+  <kbd><img src="https://i.imgur.com/6yWAVK2.png" alt="Level 1"></kbd>
 </p>
 
-<p>After launching the game, this is the screen the player will be looking at. The buttons the player can click on are "Play" and "Quit". In the future, I plan on adding the option for the player to pick a different skin to play in the game, but for now the player will play with the yellow skin.</p>
+<p>The user can write the name of a new item they want to add to the list and click on "add" to add that item.</p>
 
 <h3>Tutorial Screen</h3>
 
