@@ -4,7 +4,7 @@
 
 
 
-  <img src="https://i.imgur.com/o33BFMI.png" alt="PernTodo Website">
+  <img src="blob:https://imgur.com/7657996c-7ee4-4ab1-9ca8-fc3130246d6c" alt="PernTodo Website">
 
 
 <h2>Description</h2>
@@ -37,44 +37,48 @@
 <h3>Adding Items to the List</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/6yWAVK2.png" alt="Level 1"></kbd>
+  <kbd><img src="https://i.imgur.com/6yWAVK2.png" alt="AddingItem"></kbd>
 </p>
 
 <p>The user can write the name of a new item they want to add to the list and click on "add" to add that item. You can see on the second image below that the item has been added to the list.</p>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/EffXnKy.png" alt="Level 1"></kbd>
+  <kbd><img src="https://i.imgur.com/EffXnKy.png" alt="AddingItem1"></kbd>
 </p>
 
 <h3>Deleting an item from the list</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/Kuhy6Hr.png" alt="Level 2"></kbd>
+  <kbd><img src="https://i.imgur.com/Kuhy6Hr.png" alt="DeletingItem"></kbd>
 </p>
 
 <p>In case the user wants to delete an item for the list, they can simply click on the button "delete" next to the item they want to delete. In this example, I chose to delete the item "wash the dishes".</p>
 
-<h3>Pause Menu</h3>
+<h3>Editing an item on the list</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/lBjybs9.png" alt="Level 2"></kbd>
+  <kbd><img src="https://i.imgur.com/NEnmtvj.png" alt="Level 2"></kbd>
 </p>
 
-<p>After pressing play on the main menu, the player will be able to press the "Escape" button to open the Pause Menu. The pause menu offers a few options, including "Resume" which makes the player go back to the game normally, "Options" which opens a new menu for changing other ascpects in the game I will cover later, "Restart" which will play the game from the beginning, and "Main Menu" which goes back to the menu I talked about previously.</p>
+<p align="center">
+  <kbd><img src="https://i.imgur.com/8orPkgC.png" alt="Level 3"></kbd>
+</p>
+
+<p align="center">
+  <kbd><img src="https://i.imgur.com/ULVNaP3.png" alt="Level 4"></kbd>
+</p>
+
+<p>In case the user wants to edit an item on the list, they can press the button "edit" next to the item they want to edit. In this example I chose to edit the "I need to clean my car" item on the list and change it to "I need to buy toothpaste".</p>
 
 <h3>Options Menu</h3>
 
-<p align="center">
-  <kbd><img src="https://i.imgur.com/ng4mlm0.png" alt="Level 3"></kbd>
-</p>
+
 
 <p>In the options menu we can change things about the game such as the volume of sound effects, music, and keybinds for how the player moves and interacts with objects in the game.</p>
 
 <h3>Game Over</h3>
 
-<p align="center">
-  <kbd><img src="https://i.imgur.com/JAcQuYD.png" alt="Level 4"></kbd>
-</p>
+
 
 <p>When the timer ends, the Game Over screen is shown. On this screen the player can see how many recipes were delivered by the player, and gives the options for the player to click on the "Restart" or "Quit" buttons. "Restart" will play the game from the beginning and "Quit" will simply close the game.</p>
 
