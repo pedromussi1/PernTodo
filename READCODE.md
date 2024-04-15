@@ -30,21 +30,25 @@ Server Start:
 app.listen(5000, () => {...}): This line starts the Express server on port 5000, and a message is logged to the console indicating that the server has started successfully.
 </p>
 
-db.js
+<h3>db.js</h3>
 
 Importing the Pool Class:
-
 const Pool = require("pg").Pool;: We're importing the Pool class from the pg module. The pg module is a PostgreSQL client for Node.js that allows us to interact with the PostgreSQL database.
+
 Creating a Pool Instance:
-
 const pool = new Pool({...});: We're creating a new instance of the Pool class and passing an object with the database connection configurations:
-user: The username used to authenticate with the PostgreSQL database.
-password: The password used to authenticate with the PostgreSQL database.
-host: The hostname or IP address where the PostgreSQL database is running (in this case, it's localhost).
-port: The port number on which the PostgreSQL database is listening (default is 5432).
-database: The name of the database to connect to (perntodo in this example).
-Exporting the Pool Instance:
 
+user: The username used to authenticate with the PostgreSQL database.
+
+password: The password used to authenticate with the PostgreSQL database.
+
+host: The hostname or IP address where the PostgreSQL database is running (in this case, it's localhost).
+
+port: The port number on which the PostgreSQL database is listening (default is 5432).
+
+database: The name of the database to connect to (perntodo in this example).
+
+Exporting the Pool Instance:
 module.exports = pool;: We're exporting the pool instance so that it can be imported and used in other files (like in the Express application file) to perform database operations such as querying, inserting, updating, and deleting data.
 
 
