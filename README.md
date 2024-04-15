@@ -40,19 +40,19 @@
   <kbd><img src="https://i.imgur.com/6yWAVK2.png" alt="Level 1"></kbd>
 </p>
 
+<p>The user can write the name of a new item they want to add to the list and click on "add" to add that item. You can see on the second image below that the item has been added to the list.</p>
+
 <p align="center">
   <kbd><img src="https://i.imgur.com/EffXnKy.png" alt="Level 1"></kbd>
 </p>
 
-<p>The user can write the name of a new item they want to add to the list and click on "add" to add that item. You can see on the second image that the item has been added to the list.</p>
-
 <h3>Deleting an item from the list</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/nCy2UPu.png" alt="Level 2"></kbd>
+  <kbd><img src="https://i.imgur.com/Kuhy6Hr.png" alt="Level 2"></kbd>
 </p>
 
-<p>After pressing play on the main menu, the player will see a tutorial screen where the can see instructions on how to play the game and the controls needed to play the game. The player can close this screen and start the game by pressing the "Interact" button, which is set to the "E" key by default.</p>
+<p>In case the user wants to delete an item for the list, they can simply click on the button "delete" next to the item they want to delete. In this example, I chose to delete the item "wash the dishes".</p>
 
 <h3>Pause Menu</h3>
 
