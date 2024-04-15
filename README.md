@@ -4,7 +4,7 @@
 
 
 
-  <img src="blob:https://imgur.com/7657996c-7ee4-4ab1-9ca8-fc3130246d6c" alt="PernTodo Website">
+  <img src="https://i.imgur.com/o33BFMI.png?1" alt="PernTodo Website">
 
 
 <h2>Description</h2>
