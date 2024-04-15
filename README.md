@@ -4,7 +4,7 @@
 
 
 
-  <img src="https://i.imgur.com/o33BFMI.png?1" alt="PernTodo Website">
+<kbd><img src="https://i.imgur.com/o33BFMI.png?1" alt="PernTodo Website"></kbd>
 
 
 <h2>Description</h2>
