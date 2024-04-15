@@ -4,7 +4,7 @@
 
 <h2>Server</h2>
 
-<h3>index.js:</h3>
+<h3>(Server) index.js:</h3>
 
 <p>
 CORS: The app.use(cors()) line enables CORS, allowing our Express server to accept requests from different origins or domains.
@@ -31,7 +31,7 @@ app.listen(5000, () => {...}): This line starts the Express server on port 5000,
 </p>
 
 <h3>db.js</h3>
-
+<p>
 Importing the Pool Class:
 const Pool = require("pg").Pool;: We're importing the Pool class from the pg module. The pg module is a PostgreSQL client for Node.js that allows us to interact with the PostgreSQL database.
 
@@ -50,12 +50,15 @@ database: The name of the database to connect to (perntodo in this example).
 
 Exporting the Pool Instance:
 module.exports = pool;: We're exporting the pool instance so that it can be imported and used in other files (like in the Express application file) to perform database operations such as querying, inserting, updating, and deleting data.
+</p>
+
+<h2>Client</h2>
+
+<h3>(Client) index.js</h3>
 
 
 
-
-
-### <h3>index.js</h3>
+### <h3>(Server) index.js</h3>
 
 <details>
 <summary>Click to expand code</summary>
