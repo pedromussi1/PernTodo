@@ -1,6 +1,6 @@
 <h1>Code Breakdown</h1>
 
-<p>The way I have decide to structure this explanation is by only analyzing the bulkier parts of the game, files that were complex enough to warrant an extended explanation. For better organization and understanding, I have separated the code files in three categories: function, UI, and counters.</p>
+<p>This page should cover all the steps that were taken to create the PernTodo web application. Code snippets will be shown and explained, along with screenshots of how the database looks on PostgreSQL and analyzing how the database connects to the website in the localhost.</p>
 
 <h2>Function</h2>
 
