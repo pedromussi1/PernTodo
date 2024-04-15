@@ -10,250 +10,96 @@ Manages the player character's movement and interactions within the kitchen envi
 Handles player input, movement, and interaction events.
 Communicates with various kitchen objects such as counters and plates.
 
-KitchenGameManager.cs:
 
-Controls the overall game state, including waiting to start, countdown to start, gameplay, and game over states.
-Manages timers for game events, such as the countdown to start and gameplay duration.
-Handles player input for starting the game and pausing/unpausing.
 
-DeliveryManager.cs:
-
-Manages the delivery of recipes within the game.
-Spawns recipes at intervals during gameplay.
-Tracks successful and failed recipe deliveries.
-
-KitchenObject.cs:
-
-Represents interactive objects within the kitchen environment.
-Handles the placement and removal of kitchen objects on counters and plates.
-Provides functionality for object destruction and interaction with other game elements.
-
-SoundManager.cs:
-
-Controls the playback of audio cues and sound effects throughout the game.
-Responds to various game events such as successful recipe deliveries and object interactions to trigger appropriate sound effects.
-
-GameInput.cs:
-
-Manages player input bindings and interaction actions.
-Allows rebinding of input actions such as movement, interaction, and pausing.
-Handles input events and triggers corresponding actions in the game.
-
-Each of these scripts plays a crucial role in different aspects of the game, such as player control, game state management, object interactions, audio feedback, and input handling. Together, they create an immersive and interactive kitchen environment where players can engage in various activities such as cooking, delivering recipes, and managing kitchen operations. By working together, these scripts provide a seamless and enjoyable gameplay experience for the player.</p>
+</p>
 
 
 
-### <h3>Player.cs</h3>
+### <h3>index.js</h3>
 
 <details>
 <summary>Click to expand code</summary>
 
-```csharp
+```js
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEngine;
+// Importing required modules
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const pool = require("./db"); // Connecting to the PostgreSQL database
 
-public class Player : MonoBehaviour, IKitchenObjectParent
-{
-    // Singleton instance of the Player class
-    public static Player Instance { get; private set; }
+// Middleware setup
+app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(express.json()); // Parse JSON bodies sent by clients
 
-    // Events for when the player interacts or changes selected counter
-    public event EventHandler OnPickedSomething;
-    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
-    public class OnSelectedCounterChangedEventArgs : EventArgs {
-        public BaseCounter selectedCounter;
+// ROUTES //
+
+// Create a new todo item
+app.post("/todos", async (req, res) => {
+    try {
+        const { description } = req.body; // Destructuring description from request body
+        // Insert new todo into the database and return the inserted todo
+        const newTodo = await pool.query("INSERT INTO todo (description) VALUES($1) RETURNING * ", [description]);
+        res.json(newTodo.rows[0]); // Send the newly created todo as JSON response
+    } catch (err) {
+        console.error(err.message); // Log any errors to the console
     }
+});
 
-    // Serialized fields accessible in the Unity Editor
-    [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private GameInput gameInput;
-    [SerializeField] private LayerMask countersLayerMask;
-    [SerializeField] private Transform kitchenObjectHoldPoint;
-
-    // Private variables for player state and interactions
-    private bool isWalking;
-    private Vector3 lastInteractDir;
-    private BaseCounter selectedCounter;
-    private KitchenObject kitchenObject;
-
-    // Called when the script instance is being loaded
-    private void Awake()
-    {
-        // Ensure only one instance of Player exists
-        if (Instance != null)
-        {
-            Debug.LogError("There is more than one player instance");
-        }
-        Instance = this;
+// Get all todo items
+app.get("/todos", async (req, res) => {
+    try {
+        // Fetch all todos from the database
+        const allTodos = await pool.query("SELECT * FROM todo");
+        res.json(allTodos.rows); // Send the todos as JSON response
+    } catch (err) {
+        console.error(err.message); // Log any errors to the console
     }
+});
 
-    // Called before the first frame update
-    private void Start()
-    {
-        // Subscribe to input events
-        gameInput.OnInteractAction += GameInput_OnInteractAction;
-        gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+// Get a specific todo item by ID
+app.get("/todos/:id", async (req, res) => {
+    try {
+        const { id } = req.params; // Extract todo ID from request parameters
+        // Fetch todo with the given ID from the database
+        const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [id]);
+        res.json(todo.rows[0]); // Send the fetched todo as JSON response
+    } catch (err) {
+        console.error(err.message); // Log any errors to the console
     }
+});
 
-    // Event handler for primary interaction action
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
-    {
-        // Check if game is playing
-        if (!KitchenGameManager.Instance.IsGamePlaying()) return;
-
-        // Perform interaction with selected counter
-        if (selectedCounter != null)
-        {
-            selectedCounter.Interact(this);
-        }
+// Update a specific todo item by ID
+app.put("/todos/:id", async (req, res) => {
+    try {
+        const { id } = req.params; // Extract todo ID from request parameters
+        const { description } = req.body; // Destructuring description from request body
+        // Update todo with the given ID in the database
+        await pool.query("UPDATE todo SET description = $1 WHERE todo_id = $2", [description, id]);
+        res.json("Todo was updated!"); // Send success message as JSON response
+    } catch (err) {
+        console.error(err.message); // Log any errors to the console
     }
+});
 
-    // Event handler for alternate interaction action
-    private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
-    {
-        // Check if game is playing
-        if (!KitchenGameManager.Instance.IsGamePlaying()) return;
-
-        // Perform alternate interaction with selected counter
-        if (selectedCounter != null)
-        {
-            selectedCounter.InteractAlternate(this);
-        }
+// Delete a specific todo item by ID
+app.delete("/todos/:id", async (req, res) => {
+    try {
+        const { id } = req.params; // Extract todo ID from request parameters
+        // Delete todo with the given ID from the database
+        await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
+        res.json("Todo was deleted!"); // Send success message as JSON response
+    } catch (err) {
+        console.error(err.message); // Log any errors to the console
     }
+});
 
-    // Called once per frame
-    private void Update()
-    {
-        // Handle player movement and interactions
-        HandleMovement();
-        HandleInteractions();
-    }
+// Start the server on port 5000
+app.listen(5000, () => {
+    console.log("Server has started on port 5000");
+});
 
-    // Check if player is walking
-    public bool IsWalking()
-    {
-        return isWalking;
-    }
-
-    // Handle interactions with kitchen counters
-    private void HandleInteractions()
-    {
-        // Get normalized movement input
-        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
-        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-
-        // Check for nearby counters for selection
-        float interactDistance = 2f;
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask)){
-            if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
-            {
-                if (baseCounter != selectedCounter){
-                    SetSelectedCounter(baseCounter);
-                }
-            }else{
-                SetSelectedCounter(null);
-            }
-        }else{
-            SetSelectedCounter(null);
-        }
-    }
-
-    // Handle player movement
-    private void HandleMovement()
-    {
-        // Get normalized movement input
-        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
-        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-
-        // Calculate movement distance and check for obstacles
-        float moveDistance = moveSpeed * Time.deltaTime;
-        float playerRadius = .7f;
-        float playerHeight = 2f;
-        bool canMove =!Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
-
-        // If movement is obstructed, try moving along X or Z axis
-        if (!canMove)
-        {
-            Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
-            canMove = moveDir.x != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
-
-            if (canMove)
-            {
-                moveDir = moveDirX;
-            }
-            else
-            {
-                Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
-                canMove = moveDir.z != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
-
-                if (canMove)
-                {
-                    moveDir = moveDirZ;
-                }
-            }
-        }
-
-        // Move the player if possible
-        if (canMove)
-        {
-            transform.position += moveDir * moveDistance;
-        }
-
-        // Update walking state and rotation
-        isWalking = moveDir != Vector3.zero;
-        float rotateSpeed = 10f;
-        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-    }
-
-    // Set the currently selected counter
-    private void SetSelectedCounter(BaseCounter selectedCounter)
-    {
-        this.selectedCounter = selectedCounter;
-
-        // Invoke event with the new selected counter
-        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
-        {
-            selectedCounter = selectedCounter
-        });
-    }
-
-    // Get the transform for holding kitchen objects
-    public Transform GetKitchenObjectFollowTransform()
-    {
-        return kitchenObjectHoldPoint;
-    }
-
-    // Set the currently held kitchen object
-    public void SetKitchenObject(KitchenObject kitchenObject)
-    {
-        this.kitchenObject = kitchenObject;
-
-        // Invoke event when an object is picked up
-        if (kitchenObject != null)
-        {
-            OnPickedSomething?.Invoke(this, EventArgs.Empty);
-        }
-    }
-
-    // Get the currently held kitchen object
-    public KitchenObject GetKitchenObject() { return kitchenObject; }
-
-    // Clear the currently held kitchen object
-    public void ClearKitchenObject()
-    {
-        kitchenObject = null;
-    }
-
-    // Check if the player is holding a kitchen object
-    public bool HasKitchenObject()
-    {
-        return kitchenObject != null;
-    }
-}
 ```
 </details>
 
