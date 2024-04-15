@@ -121,3 +121,113 @@ app.listen(5000, () => {
 
 <hr>
 
+### <h3>db.js</h3>
+
+<details>
+<summary>Click to expand code</summary>
+
+```js
+
+// Importing the Pool class from the 'pg' module to create a connection pool
+const Pool = require("pg").Pool;
+
+// Creating a new Pool instance with database connection configurations
+const pool = new Pool({
+    user: "postgres",       // Database user
+    password: "1234",       // Database password
+    host: "localhost",      // Database host
+    port: 5432,             // Database port
+    database: "perntodo"    // Database name
+});
+
+// Exporting the pool instance to be used in other files
+module.exports = pool;
+
+```
+</details>
+
+<hr>
+
+### <h3>index.js</h3>
+
+<details>
+<summary>Click to expand code</summary>
+
+```js
+
+```
+</details>
+
+<hr>
+
+### <h3>index.js</h3>
+
+<details>
+<summary>Click to expand code</summary>
+
+```js
+
+```
+</details>
+
+<hr>
+
+### <h3>index.js</h3>
+
+<details>
+<summary>Click to expand code</summary>
+
+```js
+
+```
+</details>
+
+<hr>
+
+### <h3>index.js</h3>
+
+<details>
+<summary>Click to expand code</summary>
+
+```js
+
+```
+</details>
+
+<hr>
+
+### <h3>index.js</h3>
+
+<details>
+<summary>Click to expand code</summary>
+
+```js
+
+```
+</details>
+
+<hr>
+
+### <h3>index.js</h3>
+
+<details>
+<summary>Click to expand code</summary>
+
+```js
+
+```
+</details>
+
+<hr>
+
+### <h3>index.js</h3>
+
+<details>
+<summary>Click to expand code</summary>
+
+```js
+
+```
+</details>
+
+<hr>
