@@ -54,41 +54,85 @@ module.exports = pool;: We're exporting the pool instance so that it can be impo
 
 <h2>Client</h2>
 
-<h3>App.js</h3>
-
-<p>
-
-Importing Modules and Components:
-
-import React, { Fragment } from 'react';: We're importing React and Fragment from the 'react' library. React is a JavaScript library for building user interfaces, and Fragment is a built-in React component that allows us to group multiple elements without adding an extra node to the DOM.
-
-import './App.css';: We're importing the App.css file to apply styles to the App component and its child components.
-
-Importing Custom Components:
-
-import InputTodo from "./components/InputTodo";: We're importing the InputTodo component from the InputTodo.js file located in the components folder.
-
-import ListTodos from './components/ListTodos';: We're importing the ListTodos component from the ListTodos.js file located in the components folder.
-
-App Component:
-
-We're defining a functional component named App using the arrow function syntax. This component represents the main App component of our React application.
-
-We're using the Fragment component to group multiple child components without adding an extra node to the DOM. This helps to keep the HTML structure clean and semantic.
-
-We're using a div element with a className of container to create a container for our child components. The container class is likely defined in the App.css file and applies styling to the container.
-
-We're rendering the InputTodo component inside the container. This component likely contains a form to input new todo items.
-
-We're rendering the ListTodos component inside the container. This component likely displays a list of todo items fetched from the database.
-    
-</p>
-
 <h3>(Client) index.js</h3>
 
 <p>
 
+Creating a Root for the React Application:
 
+const root = ReactDOM.createRoot(document.getElementById('root'));: We're creating a root for the React application using the ReactDOM.createRoot() method. This method takes the 'root' element from the DOM (usually a div with an id of 'root') and returns a root object that can be used to render the React application.
+Rendering the App Component Inside the Root:
+
+root.render(...): We're using the render method of the root object to render the App component inside the root of the React application.
+
+<React.StrictMode> {...} </React.StrictMode>: We're using React.StrictMode to wrap the App component. StrictMode is a tool for highlighting potential problems in the application during development, such as deprecated APIs and side effects.
+
+We're rendering the App component inside the StrictMode wrapper. The App component is the main component of the React application, which renders the child components InputTodo and ListTodos.
+    
+</p>
+
+<h3>EditTodo.js</h3>
+
+<p>
+
+EditTodo Component:
+
+The EditTodo component is responsible for rendering a modal that allows users to edit the description of a todo item. It consists of the following key parts:
+
+Props:
+
+todo: A prop containing the details of the todo item to be edited.
+State Variables:
+
+description: A state variable initialized with the description of the todo item passed as a prop to store the updated description.
+Event Handlers:
+
+updateDescription: An asynchronous function that handles the update of the todo item's description. It sends a PUT request to the backend API with the updated description to update the todo item in the database.
+Rendered Elements:
+
+A button to trigger the modal to edit the todo item.
+A modal containing an input field for editing the todo item's description, an "Edit" button to update the description, and a "Close" button to close the modal.
+</p>
+
+<h3>InputTodo</h3>
+
+<p>
+
+InputTodo Component:
+
+The InputTodo component is responsible for rendering a form that allows users to input a new todo item. It consists of the following key parts:
+
+State Variables:
+
+description: A state variable initialized with an empty string to store the description of the new todo item.
+Event Handlers:
+
+onSubmitForm: An asynchronous function that handles the form submission. It sends a POST request to the backend API with the new todo item's description to add it to the database.
+Rendered Elements:
+
+A heading indicating that this is a Pern Todo List.
+A form containing an input field for the todo item description and a submit button.
+</p>
+
+<h3>ListTodos</h3>
+
+<p>
+
+The ListTodos component is responsible for rendering a list of todo items fetched from the backend. It consists of the following key parts:
+
+State Variables:
+
+todos: A state variable initialized with an empty array to store the list of todo items fetched from the backend.
+Event Handlers:
+
+deleteTodo: An asynchronous function that handles the deletion of a todo item. It sends a DELETE request to the backend API to delete the specified todo item and updates the todos state to remove the deleted todo item.
+Effect Hook:
+
+useEffect: A hook that runs the getTodos function when the component mounts to fetch all todo items from the backend.
+Rendered Elements:
+
+A table displaying the list of todo items fetched from the backend.
+Each todo item is displayed as a table row containing its description, an EditTodo component to edit the todo item, and a Delete button to delete the todo item.
     
 </p>
 
